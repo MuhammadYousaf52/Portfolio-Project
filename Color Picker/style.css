@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #fafafa;
+    font-family: sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 500px;
+    height: 500px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+}
+.preview-box{
+    width: 80%;
+    height: 150px;
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+.color-input{
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.values{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.label{
+    font-size: 18px;
+    color: #555;
+}
+.HEX,.RGB{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+.HEX input , .RGB input{
+    padding: 5px;
+    outline: none;
+    width: 140px;
+    text-align: center;
+    font-size: 16px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.button button{
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    transition: 0.3s;
+}
+.button button:hover{
+    background-color: #1f6b22;
+    transform: scale(1.05);
+}
+.CRGB button{
+    background-color: #007BFF;
+    color: white;
+}
+.CRGB button:hover{
+    background-color: #004084;
+}

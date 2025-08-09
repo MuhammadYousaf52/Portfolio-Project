@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="preview-box"></div>
+        <div class="color-input">
+            <label for="color">Select the color : </label>
+            <input type="color" name="color" id="color">
+        </div>
+        <div class="values">
+            <div class="HEX">
+                <div class="label">HEX</div>
+                <div class="input-HEX">
+                    <input type="text" name="HEX" id="HEX-value">
+                </div>
+                <div class="button CHEX">
+                    <button>Copy HEX</button>
+                </div>
+            </div>
+            <div class="RGB">
+                <div class="label">RGB</div>
+                <div class="input-RGB">
+                    <input type="text" name="RGB" id="RGB-value">
+                </div>
+                <div class="button CRGB">
+                     <button>Copy RGB</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
