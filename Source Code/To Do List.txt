@@ -1,0 +1,159 @@
+All Code
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <style>
+      /* Scrollbar Styles for .added-tasks */
+      .added-tasks::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .added-tasks::-webkit-scrollbar-track {
+        background: #f5f5dc; /* beige */
+        border-radius: 10px;
+      }
+
+      .added-tasks::-webkit-scrollbar-thumb {
+        background-color: #d2b48c; /* bisque-like/darker beige */
+        border-radius: 10px;
+        border: 2px solid #f5f5dc; /* matches the track */
+      }
+
+      .added-tasks::-webkit-scrollbar-thumb:hover {
+        background-color: #b8860b; /* dark goldenrod (hover effect) */
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+      }
+
+      .container {
+        width: 500px;
+        height: 500px;
+        background-color: beige;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .content {
+        width: 300px;
+        text-align: center;
+      }
+
+      h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 800;
+      }
+      .task-input {
+        width: 80%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+      .task-input input {
+        padding: 7px 7px;
+        width: 70%;
+        border: none;
+        border-radius: 10px;
+      }
+      .task-input img {
+        background-color: rgb(29, 190, 29);
+        border-radius: 100px;
+        padding: 7px;
+        position: absolute;
+        right: 50px;
+        top: 7px;
+        cursor: pointer;
+      }
+      .added-tasks {
+        width: 80%;
+        height: auto;
+        max-height: 280px;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+        overflow-y: auto;
+      }
+      .task {
+        color: black;
+        width: 90%;
+        height: auto;
+        border-radius: 10px;
+        background-color: bisque;
+        padding: 8px 8px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .task img {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="content">
+        <h2>To Do List</h2>
+      </div>
+      <div class="task-input">
+        <input
+          type="text"
+          name="task"
+          id="task"
+          placeholder="Enter Your Task..."
+        />
+        <img id="add-task" src="icons/plus.svg" alt="delete" />
+      </div>
+      <div class="added-tasks"></div>
+    </div>
+
+    <script>
+      const button = document.getElementById("add-task");
+      const input = document.getElementById("task");
+      button.addEventListener("click", () => {
+        const value = input.value;
+        const trimmedValue = value.trim();
+        if (trimmedValue == "") {
+          alert("You didn't type anything");
+        } else {
+          const taskadded = document.querySelector(".added-tasks");
+          const taskdiv = document.createElement("div");
+          taskdiv.className = "task";
+          taskdiv.innerHTML = `<div class="text">${trimmedValue}</div>
+                <img class="delete" src="icons/trash.svg" alt="delete">`;
+          taskadded.appendChild(taskdiv);
+          input.value = "";
+
+          const trash = taskdiv.querySelector(".delete");
+          trash.addEventListener("click", function(){
+            this.parentElement.remove()
+          });
+        }
+      });
+      input.addEventListener("keydown", function (e) {
+        if(e.key == "Enter"){
+            button.click();
+        }
+      })
+    </script>
+  </body>
+</html>

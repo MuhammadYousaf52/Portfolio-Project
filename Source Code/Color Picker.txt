@@ -1,0 +1,214 @@
+
+// HTML
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="preview-box"></div>
+        <div class="color-input">
+            <label for="color">Select the color : </label>
+            <input type="color" name="color" id="color">
+        </div>
+        <div class="values">
+            <div class="HEX">
+                <div class="label">HEX</div>
+                <div class="input-HEX">
+                    <input type="text" name="HEX" id="HEX-value">
+                </div>
+                <div class="button CHEX">
+                    <button>Copy HEX</button>
+                </div>
+            </div>
+            <div class="RGB">
+                <div class="label">RGB</div>
+                <div class="input-RGB">
+                    <input type="text" name="RGB" id="RGB-value">
+                </div>
+                <div class="button CRGB">
+                     <button>Copy RGB</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+// CSS
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #fafafa;
+    font-family: sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 500px;
+    height: 500px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+}
+.preview-box{
+    width: 80%;
+    height: 150px;
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+.color-input{
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.values{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.label{
+    font-size: 18px;
+    color: #555;
+}
+.HEX,.RGB{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+.HEX input , .RGB input{
+    padding: 5px;
+    outline: none;
+    width: 140px;
+    text-align: center;
+    font-size: 16px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.button button{
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    transition: 0.3s;
+}
+.button button:hover{
+    background-color: #1f6b22;
+    transform: scale(1.05);
+}
+.CRGB button{
+    background-color: #007BFF;
+    color: white;
+}
+.CRGB button:hover{
+    background-color: #004084;
+}
+
+
+
+// Javascript
+
+
+const previewBox = document.querySelector(".preview-box");
+const inputColor = document.querySelector("#color");
+const HEX = document.querySelector("#HEX-value");
+const RGB = document.querySelector("#RGB-value");
+const CopyHEX = document.querySelector(".CHEX");
+const CopyRGB = document.querySelector(".CRGB");
+function hexToRGB(hex) {
+    hex = hex.replace("#", "");
+    if (hex.length !== 6) return "";
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+function rgbToHex(rgb) {
+    // Extract numbers from rgb string using regex
+    const result = rgb.match(/\d+/g);
+    if (!result || result.length < 3) return "";
+
+    let r = parseInt(result[0]).toString(16).padStart(2, "0");
+    let g = parseInt(result[1]).toString(16).padStart(2, "0");
+    let b = parseInt(result[2]).toString(16).padStart(2, "0");
+
+    return `#${r}${g}${b}`;
+}
+
+previewBox.style.backgroundColor = inputColor.value
+
+inputColor.addEventListener("input", () => {
+    previewBox.style.backgroundColor = inputColor.value
+    HEX.value = inputColor.value
+    RGB.value = hexToRGB(inputColor.value)
+})
+HEX.addEventListener("input", () => {
+    previewBox.style.backgroundColor = HEX.value
+    RGB.value = hexToRGB(HEX.value);
+    inputColor.value = HEX.value
+})
+
+RGB.addEventListener("input", () => {
+    previewBox.style.backgroundColor = RGB.value
+    HEX.value = rgbToHex(RGB.value);
+    let hex = rgbToHex(RGB.value)
+    if(hex) {
+        HEX.value = hex
+        inputColor.value = hex;
+    }
+
+})
+
+CopyHEX.addEventListener("click", () => {
+    if (HEX.value.trim() !== "") {
+        navigator.clipboard.writeText(HEX.value);
+        let original = HEX.value;
+        HEX.value = "Copied!";
+        setTimeout(() => HEX.value = original, 1500);
+    }
+});
+
+// ✅ Copy RGB
+CopyRGB.addEventListener("click", () => {
+    if (RGB.value.trim() !== "") {
+        navigator.clipboard.writeText(RGB.value);
+        let original = RGB.value;
+        RGB.value = "Copied!";
+        setTimeout(() => RGB.value = original, 1500);
+    }
+});

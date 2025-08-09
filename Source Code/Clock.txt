@@ -1,0 +1,166 @@
+// HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="time">
+            <div class="t hours"></div>:
+            <div class="t minutes"></div>:
+            <div class="t seconds"></div>
+            <div class="t meridian"></div>
+        </div>
+        <div class="date">
+            <div class="d date"></div>
+            <div class="d month"></div>
+            <div class="d year"></div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+// CSS
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #0D0D0D;
+    font-family:"Orbitron", sans-serif ;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 500px;
+    height: 300px;
+    border-radius: 100px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.time{
+    width: 70%;
+    height: 50px;
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+    gap: 25px;
+    font-weight: bolder;
+    color: #FF00FF;
+    text-shadow:  0 0 20px #FF00FF;
+}
+.t{
+    width: 30px;
+    height:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+}
+.date{
+    width: 70%;
+    height: 50px;
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+    gap: 25px;
+    color: #00FFFF;
+    text-shadow: 0 0 10px #00FFFF;
+}
+.d{
+    width: 30px;
+    height:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    font-weight: bolder;
+}
+.year{
+    width: 60px;
+}
+
+
+
+// Javascript
+
+function digitalClock() {
+    setInterval(() => {
+
+        // Variables to get time.
+        let time = new Date();
+        let hours = time.getHours();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let date = time.getDate();
+        let month = time.getMonth();
+        let meridian = "A.M"
+        let year = time.getFullYear();
+        let clock = document.querySelector(".container");
+
+        // If else logic
+        if (hours > 12) {
+            hours = "0" + (hours - 12)
+            meridian = "P.M"
+        }
+        else if (hours === 0) {
+            hours = 12
+            meridian = "A.M"
+        }
+        else if (hours < 12) {
+            hours = "0" + hours
+            meridian = "A.M"
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds
+        }
+        if (date < 10) {
+            date = "0" + date
+        }
+        if (month < 10) {
+            month = "0" + month
+        }
+
+        // html to add the time to our clock
+        let html = ` <div class="time">
+            <div class="t hours">${hours}</div>:
+            <div class="t minutes">${minutes}</div>:
+            <div class="t seconds">${seconds}</div>
+            <div class="t meridian">${meridian}</div>
+        </div>
+        <div class="date">
+            <div class="d date">${date}</div>-
+            <div class="d month">${month}</div>-
+            <div class="d year">${year}</div>
+        </div>`
+
+        // inputting the html
+        clock.innerHTML = html
+    }, 1000);
+
+}
+digitalClock();
